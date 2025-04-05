@@ -8,8 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
-
-const url = 'mongodb://localhost:27017/';
+const url = 'mongodb://mongodb:27017/'; 
 const dbName = 'practica-database';
 const collectionName = 'users';
 const port = 8080;
