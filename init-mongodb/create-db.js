@@ -1,6 +1,4 @@
-// Create user
-dbAdmin = db.getSiblingDB("admin");
-
-// Create DB and collection
-db = new Mongo().getDB("practica-database");
+db = db.getSiblingDB("practica-database");
 db.createCollection("users", { capped: false });
+
+print("Base de datos y coleccion creados correctamente!!!");

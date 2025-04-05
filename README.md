@@ -26,7 +26,7 @@ npm install
 ### Dockerizar
 Puedes replicar en docker implementando el siguiente comando:
 ```bash
-`docker-compose up --build`
+docker-compose up --build
 ```
 ### Rutas de la API
 ### 1. GET /users
