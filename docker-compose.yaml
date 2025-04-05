@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo:latest
@@ -7,22 +5,25 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./init-mongodb:/docker-entrypoint-initdb.d
-      - ./init-mongodb/data:/tmp/data
+      - ./init-mongodb/data:/tmp/data   # Aquí mantienes el volumen para los datos
+    command: >
+      bash -c "echo '########### Loading data to Mongo DB ###########' &&
+               mongoimport --jsonArray --db practica-database --collection users --file /tmp/data/users.json &&
+               docker-entrypoint.sh mongod"  # Ejecuta el comando mongoimport y luego inicia MongoDB
     networks:
-      - node-network   
-  
+      - node-network
+
   node-app:
-      build: .
-      image: node-app
-      container_name: node-app
-      ports:
-        - '8080:8080'
-      depends_on:
-        - mongodb
-      command: ["npm", "start"]
-      networks:
-        - node-network
+    build: .
+    image: node-app
+    container_name: node-app
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongodb
+    command: ["npm", "start"]
+    networks:
+      - node-network
 
 networks:
   node-network:
