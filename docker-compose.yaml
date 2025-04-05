@@ -10,18 +10,19 @@ services:
       - ./init-mongodb:/docker-entrypoint-initdb.d
       - ./init-mongodb/data:/tmp/data
     networks:
-      - node-network
-      
+      - node-network   
+  
   node-app:
-    build: .
-    image: node-app
-    container_name: node-app
-    ports:
-      - '8080:8080'
-    depends_on:
-      - mongodb
-    networks:
-      - node-network
+      build: .
+      image: node-app
+      container_name: node-app
+      ports:
+        - '8080:8080'
+      depends_on:
+        - mongodb
+      command: ["npm", "start"]
+      networks:
+        - node-network
 
 networks:
   node-network:
