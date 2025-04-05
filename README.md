@@ -11,19 +11,22 @@ Esta es una API sencilla para gestionar usuarios usando **Node.js** y **MongoDB*
 
 ## Instalación
 
-Puedes replicar en docker implementando el siguiente comando:
-`docker-compose up --build`
-
 ### 1. Clonar el repositorio
 
 ```bash
-
+https://github.com/Nestel2022/practica-docker-mongoDB.git
 ```
 ### 2. Instalar dependencias
 Ejecuta el siguiente comando para instalar las dependencias necesarias:
 
 ```bash
 npm install
+```
+
+### Dockerizar
+Puedes replicar en docker implementando el siguiente comando:
+```bash
+`docker-compose up --build`
 ```
 ### Rutas de la API
 ### 1. GET /users
