@@ -4,15 +4,17 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./init-mongodb/data:/tmp/data   # Aquí mantienes el volumen para los datos
-    command: >
-      bash -c "echo '########### Loading data to Mongo DB ###########' &&
-               mongoimport --jsonArray --db practica-database --collection users --file /tmp/data/users.json &&
-               docker-entrypoint.sh mongod"  # Ejecuta el comando mongoimport y luego inicia MongoDB
+      - mongodb_data:/data/db
+      - ./init-mongodb/create-db.js:/docker-entrypoint-initdb.d/create-db.js:ro
+      - ./init-mongodb/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./init-mongodb/data:/tmp/data
     networks:
       - node-network
-
+  
   node-app:
     build: .
     image: node-app
@@ -24,6 +26,9 @@ services:
     command: ["npm", "start"]
     networks:
       - node-network
+
+volumes:
+  mongodb_data:
 
 networks:
   node-network:
