@@ -1,16 +1,15 @@
 #!/bin/bash
 
-echo "########### Waiting for MongoDB to initialize ###########"
+echo "########### Waiting for MongoDB to start ###########"
 until mongosh --eval "print(\"waited for connection\")" 2>/dev/null; do
-    sleep 2
+    sleep 1
 done
 
-echo "########### Loading data ###########"
-mongoimport --uri "mongodb://root:example@localhost:27017/practica-database?authSource=admin" \
+echo "########### Loading data to Mongo DB ###########"
+mongoimport --db practica-database \
 --collection users \
 --type json \
 --file /tmp/data/users.json \
---jsonArray \
---drop
+--jsonArray
 
 echo "########### Data loaded ###########"
